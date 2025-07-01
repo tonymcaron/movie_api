@@ -115,3 +115,14 @@ Timestamp: Wed Jun 25 2025 14:24:32 GMT-0700 (Mountain Standard Time)
 URL: /favicon.ico
 Timestamp: Wed Jun 25 2025 14:24:32 GMT-0700 (Mountain Standard Time)
 
+::1 - - [01/Jul/2025:23:16:14 +0000] "GET / HTTP/1.1" 200 31 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+::1 - - [01/Jul/2025:23:22:13 +0000] "GET /documentation/ HTTP/1.1" 404 153 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+::1 - - [01/Jul/2025:23:22:16 +0000] "GET /documentation.html HTTP/1.1" 301 168 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+::1 - - [01/Jul/2025:23:22:16 +0000] "GET /documentation.html/ HTTP/1.1" 404 158 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+::1 - - [01/Jul/2025:23:22:32 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+::1 - - [01/Jul/2025:23:23:28 +0000] "GET /documentation.html/ HTTP/1.1" 404 158 "-" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36"
+::1 - - [01/Jul/2025:23:23:28 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+::1 - - [01/Jul/2025:23:25:06 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36"
+::1 - - [01/Jul/2025:23:25:06 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+::1 - - [01/Jul/2025:23:25:15 +0000] "GET /documentation.html/ HTTP/1.1" 404 158 "-" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36"
+::1 - - [01/Jul/2025:23:25:15 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
