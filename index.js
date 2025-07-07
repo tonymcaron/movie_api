@@ -6,6 +6,21 @@ path = require('path');
 const app = express();
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 
+const topMovies = {
+  movies: [
+    { title: 'Face/Off', year: 1997 },
+    { title: 'National Treasure', year: 2004 },
+    { title: 'Leaving Las Vegas', year: 1995 },
+    { title: 'Raising Arizona', year: 1987 },
+    { title: 'Adaptation', year: 2002 },
+    { title: 'Con Air', year: 1997 },
+    { title: 'The Rock', year: 1996 },
+    { title: 'Mandy', year: 2018 },
+    { title: 'Pig', year: 2021 },
+    { title: 'Color Out of Space', year: 2019 }
+  ]
+};
+
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(express.static('public'));
 
