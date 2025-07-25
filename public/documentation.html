@@ -1,191 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>myFlix Documentation</title>
-    <style>
-      body {
-        padding: 15px;
-      }
 
-      table {
-        border-collapse: collapse;
-        width: 100%;
-        margin-bottom: 35px;
-        font-size: 13px;
-      }
+<head>
+  <meta charset="utf-8" />
+  <title>myFlix Documentation</title>
+  <style>
+    body {
+      padding: 15px;
+    }
 
-      th,
-      td {
-        padding: 10px;
-        text-align: left;
-      }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 35px;
+      font-size: 14px;
+    }
 
-      th {
-        border: 3px solid black;
-        background-color: blanchedalmond;
-      }
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+    }
 
-      td {
-        border: 2px solid #aaa;
-      }
-    </style>
-  </head>
+    th {
+      border: 3px solid black;
+      background-color: blanchedalmond;
+    }
 
-  <body>
-    <h1>API Documentation page</h1>
-    <p>
-      This web application allows users to explore information about movies,
-      directors and genres. Users have the ability to sign up and create their
-      own favorites list, as well as update their personal profile information.
-      Below you'll find a guide to using this app:
-    </p>
+    td {
+      border: 3px solid #aaa;
+    }
+  </style>
+</head>
 
-    <h2>Movie Endpoint Info</h2>
+<body>
+  <h1>API Documentation page</h1>
+  <p>
+    This web application allows users to explore information about movies,
+    directors and genres. Users have the ability to sign up and create their
+    own favorites list, as well as update their personal profile information.
+    Below you'll find a guide to using this app:
+  </p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Business Logic</th>
-          <th>Description</th>
-          <th>URL</th>
-          <th>HTTP Method</th>
-          <th>Query Parameters</th>
-          <th>Request Body Data Format</th>
-          <th>Response Body Data Format</th>
-        </tr>
-      </thead>
+  <h2>Movie Endpoint Info</h2>
+  <p>Note: URLs are case-sensitive and must use "%20" in place of any space that might be required (such as in a movie
+    title, e.g. "http://localhost:8080/movies/Inside%20Out") </p>
 
-      <tbody>
-        <tr>
-          <td>View all movies</td>
-          <td>/movies</td>
-          <td>Returns a list of all movies</td>
-          <td>GET</td>
-          <td>None</td>
-          <td>None</td>
-          <td>JSON array of all movie objects</td>
-        </tr>
+  <table>
+    <thead>
+      <tr>
+        <th>Business Logic</th>
+        <th>URL</th>
+        <th>Description</th>
+        <th>HTTP Method</th>
+        <th>Query Parameters</th>
+        <th>Request Body Data Format</th>
+        <th>Response Body Data Format</th>
+      </tr>
+    </thead>
 
-        <tr>
-          <td>Movie details by title</td>
-          <td>/movies/:title</td>
-          <td>Returns details about a specific movie</td>
-          <td>GET</td>
-          <td>Movie title</td>
-          <td>None</td>
-          <td>
-            JSON object with movie title, description, director, genre, image,
-            featured
-          </td>
-        </tr>
+    <tbody>
+      <tr>
+        <td>View all movies</td>
+        <td>/movies</td>
+        <td>Returns a list of all movies</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>None</td>
+        <td>JSON array of all movie objects</td>
+      </tr>
 
-        <tr>
-          <td>Genre description by name</td>
-          <td>/movies/genre/:genreName</td>
-          <td>Returns description of a movie genre</td>
-          <td>GET</td>
-          <td>Genre name</td>
-          <td>None</td>
-          <td>JSON object with genre name and description</td>
-        </tr>
+      <tr>
+        <td>Movie details by title</td>
+        <td>/movies/:title</td>
+        <td>Returns details about a specific movie</td>
+        <td>GET</td>
+        <td>Movie title</td>
+        <td>None</td>
+        <td>
+          JSON object with movie title, description, director, genre, image,
+          featured
+        </td>
+      </tr>
 
-        <tr>
-          <td>Director information by director name</td>
-          <td>/movies/directors/:directorName</td>
-          <td>Returns information about a specific director</td>
-          <td>GET</td>
-          <td>Director name</td>
-          <td>None</td>
-          <td>JSON object with director bio</td>
-        </tr>
-      </tbody>
-    </table>
+      <tr>
+        <td>Genre description by genre name</td>
+        <td>/movies/genre/:genreName</td>
+        <td>Returns description of a movie genre</td>
+        <td>GET</td>
+        <td>Genre name</td>
+        <td>None</td>
+        <td>JSON object with genre name and description</td>
+      </tr>
 
-    <h2>User Endpoint Info</h2>
+      <tr>
+        <td>Director information by director name</td>
+        <td>/movies/directors/:directorName</td>
+        <td>Returns information about a specific director</td>
+        <td>GET</td>
+        <td>Director name</td>
+        <td>None</td>
+        <td>JSON object with director bio</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Business Logic</th>
-          <th>Description</th>
-          <th>URL</th>
-          <th>HTTP Method</th>
-          <th>Query Parameters</th>
-          <th>Request Body Data Format</th>
-          <th>Response Body Data Format</th>
-        </tr>
-      </thead>
+  <h2>User Endpoint Info</h2>
+  <p>Note: URLs are case-sensitive and must use "%20" in place of any space that might be required (such as in a movie
+    title, e.g. "http://localhost:8080/movies/Inside%20Out") </p>
 
-      <tbody>
-        <tr>
-          <td>Create a new user</td>
-          <td>/users</td>
-          <td>Allows user to create a personal profile</td>
-          <td>POST</td>
-          <td>None</td>
-          <td>
-            Format: JSON object
-            <p></p>
-            Example: <br />
-            { "username": "John_Doe"; "email": "yourEmail@example.com";
-            "password": "yourPassword" }
-          </td>
-          <td>
-            Format: Confirmation message and JSON object of the new user w/ ID
-            <p></p>
-            Example: <br />
-            { "id": "12345"; "username": "Jane_Doe"; "email":
-            "yourEmail@example.com"; }
-          </td>
-        </tr>
+  <table>
+    <thead>
+      <tr>
+        <th>Business Logic</th>
+        <th>URL</th>
+        <th>Description</th>
+        <th>HTTP Method</th>
+        <th>Query Parameters</th>
+        <th>Request Body Data Format</th>
+        <th>Response Body Data Format</th>
+      </tr>
+    </thead>
 
-        <tr>
-          <td>Update username by ID</td>
-          <td>/users/:id</td>
-          <td>Allows user update their username</td>
-          <td>PUT</td>
-          <td>User ID</td>
-          <td>None</td>
-          <td>
-            Format: Confirmation message and JSON object of the new username
-            <p></p>
-            Example: <br />
-            { "id": "12345"; " new username": "Jane_Doe"; }
-          </td>
-        </tr>
+    <tbody>
+      <tr>
+        <td>Create a new user</td>
+        <td>/users</td>
+        <td>Allows user to create a personal profile</td>
+        <td>POST</td>
+        <td>None</td>
+        <td>
+          JSON object with user info
+          <p></p>
+          Example: <br />
+          { <br> "username": "John_Doe", "password": "yourPassword", <br> "email": "yourEmail@example.com" <br> "Birthday": "YYYY-MM-DD" <br> }
+        </td>
+        <td>
+          JSON object of the new user w/ ID
+          <p></p>
+          Example: <br />
+          { <br> "id": "12345", <br> "username": "John_Doe", "password": "yourPassword", <br> "email":
+          "yourEmail@example.com" <br> "Birthday": "YYYY-MM-DD" <br> }
+        </td>
+      </tr>
 
-        <tr>
-          <td>Add a movie to favorites list by title</td>
-          <td>/users/:id/:movieTitle</td>
-          <td>Adds a movie to user's favorites list</td>
-          <td>POST</td>
-          <td>ID, movie title</td>
-          <td>None</td>
-          <td>Confirmation message that the specified movie was added to favorites list</td>
-        </tr>
+      <tr>
+        <td>List of all users</td>
+        <td>/users</td>
+        <td>View a list of all users and info</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>None</td>
+        <td>JSON array of all user objects</td>
+      </tr>
 
-        <tr>
-          <td>Delete a movie from favorites list by title</td>
-          <td>/users/:id/:movieTitle</td>
-          <td>Removes a movie from user's favorites list</td>
-          <td>DELETE</td>
-          <td>ID, movie title</td>
-          <td>None</td>
-          <td>Confirmation message that the specified movie was removed from favorites list</td>
-        </tr>
+      <tr>
+        <td>View user by username</td>
+        <td>/users/:username</td>
+        <td>View a user's info by username</td>
+        <td>GET</td>
+        <td>Username</td>
+        <td>None</td>
+        <td>JSON object of the specified user
+          <p></p>
+          Example: <br />
+          { <br> "id": "12345", <br> "username": "John_Doe", "password": "yourPassword", <br> "email":
+          "yourEmail@example.com" <br> }
+        </td>
+      </tr>
 
-        <tr>
-          <td>Delete a user profile by ID</td>
-          <td>/users/:id</td>
-          <td>Deletes a user by ID</td>
-          <td>DELETE</td>
-          <td>ID</td>
-          <td>None</td>
-          <td>Confirmation message that the user was successfully deleted</td>
-        </tr>
-      </tbody>
-    </table>
-  </body>
+      <tr>
+        <td>Update user info by username</td>
+        <td>/users/:username</td>
+        <td>Allows user update their info</td>
+        <td>PUT</td>
+        <td>Username</td>
+        <td>JSON object
+          <p></p>
+          Example: <br />
+          { <br> "username": "John_Doe", "password": "yourPassword", <br> "email": "yourEmail@example.com" <br> }
+        </td>
+        <td>
+          JSON object of the updated user info
+          <p></p>
+          Example: <br />
+          { "id": "12345"; <br> "username": "Jane_Doe"; <br> "Password": "yourNewPassword" <br> }
+        </td>
+      </tr>
+
+      <tr>
+        <td>Add a movie to favorites list by title</td>
+        <td>/users/:username/ <br> :movieTitle</td>
+        <td>Adds a movie to user's favorites list</td>
+        <td>POST</td>
+        <td>ID, movie title</td>
+        <td>None</td>
+        <td>JSON object of user info w/ updated favorites list
+          <p></p>
+          Example: <br />
+          { <br> "username": "John_Doe", "password": "yourPassword", <br> "email": "yourEmail@example.com" <br> "Birthday": "YYYY-MM-DD" <br> FavoriteMovies: [Movie ID1, MovieID2] <br> }
+        </td>
+      </tr>
+
+      <tr>
+        <td>Delete a movie from favorites list by title</td>
+        <td>/users/:username/ <br> :movieTitle</td>
+        <td>Removes a movie from user's favorites list</td>
+        <td>DELETE</td>
+        <td>ID, movie title</td>
+        <td>None</td>
+        <td>JSON object of user info w/ updated favotires list
+          <p></p>
+          Example: <br />
+          { <br> "username": "John_Doe", "password": "yourPassword", <br> "email": "yourEmail@example.com" <br> "Birthday": "YYYY-MM-DD" <br> FavoriteMovies: [Movie ID1, MovieID2] <br> }</td>
+      </tr>
+
+      <tr>
+        <td>Delete a user profile by username</td>
+        <td>/users/:id</td>
+        <td>Deletes a user by ID</td>
+        <td>DELETE</td>
+        <td>ID</td>
+        <td>None</td>
+        <td>Confirmation message that the user was successfully deleted</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
 </html>
-
