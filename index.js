@@ -13,9 +13,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' });
+const cors = require('cors');
+app.use(cors());
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
+const {check, validationResult} = require('express-validator');
 
 app.use(morgan('combined', { stream: accessLogStream }));
 app.use(express.static('public'));
@@ -76,7 +79,7 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', {session
     });
 });
 
-// Add a user
+// Add/register a new user
 /* We'll expect JSON in this format
 {
 ID: Integer,
@@ -85,15 +88,30 @@ Password: String,
 Email: String,
 Birthday: Date
 }*/
-app.post('/users', async (req, res) => {
-  await Users.findOne({ Username: req.body.Username })
+app.post('/users',
+  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], async (req, res) => {
+    // Check the validation object for errors
+    let errors = validationResult(rew);
+
+    if(!errors.isEmpty()) {
+      return res.status(422).json({errors: errors.array()});
+    }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
+  await Users.findOne({ Username: req.body.Username }) // Checks for whether or not username already exists
     .then((user) => {
       if (user) {
+        // If user is found, send a response stating so
         return res.status(400).send(req.body.Username + ' already exists.');
       } else {
         Users.create({
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday
         })
@@ -227,6 +245,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Sumpthin done broke.');
 });
 
-app.listen(8080, () => {
-  console.log('Your app is listening on port 8080, boi!');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+  console.log('Listening on Port ' = port);
 });
