@@ -172,7 +172,7 @@ app.put('/users/:Username',
   check('Username', 'Username is required').isLength({min: 5}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.'),
   check('Password', 'Password is required').not().isEmpty(),
-  check('Empty', ',Email does not appear to be valid').isEmail()
+  check('Email', 'Email does not appear to be valid').isEmail()
 ], async (req, res) => {
 
   // Check the validation object for errors
@@ -182,7 +182,7 @@ app.put('/users/:Username',
     return res.status(422).json({errors: errors.array() });
   }
 
-  if(req.user.Username !== req.params.Username){
+  if (req.user.Username !== req.params.Username) {
     return res.status(400).send('Permission denied');
   }
   await Users.findOneAndUpdate({ Username: req.params.Username }, {
