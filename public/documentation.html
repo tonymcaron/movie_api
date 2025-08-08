@@ -144,6 +144,21 @@
       </tr>
 
       <tr>
+        <td>Login</td>
+        <td>login?Username=[username here]&Password=[password here]</td>
+        <td>Log into user account</td>
+        <td>POST</td>
+        <td>Username, password</td>
+        <td>None</td>
+        <td>JSON object of the specified user
+          <p></p>
+          Example: <br />
+          { <br> "id": "12345", <br> "username": "John_Doe", <br> "password": "yourPassword", <br> "email":
+          "yourEmail@example.com" <br> }
+        </td>
+      </tr>
+
+      <tr>
         <td>List of all users</td>
         <td>/users</td>
         <td>View a list of all users and info</td>
@@ -183,7 +198,7 @@
           JSON object of the updated user info
           <p></p>
           Example: <br />
-          { <br> "id": "12345"; <br> "username": "Jane_Doe"; <br> "Password": "yourNewPassword" <br> }
+          { <br> "id": "12345", <br> "username": "Jane_Doe", <br> "Password": "yourNewPassword" <br> }
         </td>
       </tr>
 
