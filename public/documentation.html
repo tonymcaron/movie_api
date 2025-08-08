@@ -36,15 +36,14 @@
 <body>
   <h1>API Documentation page</h1>
   <p>
-    This web application allows users to explore information about movies,
-    directors and genres. Users have the ability to sign up and create their
+    This web application allows users to explore information about movies. Users have the ability to sign up and create their
     own favorites list, as well as update their personal profile information.
     Below you'll find a guide to using this app:
   </p>
 
   <h2>Movie Endpoint Info</h2>
   <p>Note: URLs are case-sensitive and must use "%20" in place of any space that might be required (such as in a movie
-    title, e.g. "http://localhost:8080/movies/Inside%20Out") </p>
+    title, e.g. "https://.../Inside%20Out") </p>
 
   <table>
     <thead>
@@ -67,7 +66,7 @@
         <td>GET</td>
         <td>None</td>
         <td>None</td>
-        <td>JSON array of all movie objects</td>
+        <td>JSON array of all movie objects </td>
       </tr>
 
       <tr>
@@ -85,7 +84,7 @@
 
       <tr>
         <td>Genre description by genre name</td>
-        <td>/movies/genre/:genreName</td>
+        <td>/movies/genre/ <br> :genreName</td>
         <td>Returns description of a movie genre</td>
         <td>GET</td>
         <td>Genre name</td>
@@ -95,7 +94,7 @@
 
       <tr>
         <td>Director information by director name</td>
-        <td>/movies/directors/:directorName</td>
+        <td>/movies/directors/ <br> :directorName</td>
         <td>Returns information about a specific director</td>
         <td>GET</td>
         <td>Director name</td>
@@ -107,7 +106,7 @@
 
   <h2>User Endpoint Info</h2>
   <p>Note: URLs are case-sensitive and must use "%20" in place of any space that might be required (such as in a movie
-    title, e.g. "http://localhost:8080/movies/Inside%20Out") </p>
+    title, e.g. "https://.../Inside%20Out") </p>
 
   <table>
     <thead>
@@ -133,14 +132,14 @@
           JSON object with user info
           <p></p>
           Example: <br />
-          { <br> "username": "John_Doe", "password": "yourPassword", <br> "email": "yourEmail@example.com" <br> "Birthday": "YYYY-MM-DD" <br> }
+          { <br> "username": "John_Doe", <br> "password": "yourPassword", <br> "email": "yourEmail@example.com", <br> "Birthday": "YYYY-MM-DD" <br> }
         </td>
         <td>
           JSON object of the new user w/ ID
           <p></p>
           Example: <br />
-          { <br> "id": "12345", <br> "username": "John_Doe", "password": "yourPassword", <br> "email":
-          "yourEmail@example.com" <br> "Birthday": "YYYY-MM-DD" <br> }
+          { <br> "id": "12345", <br> "username": "John_Doe", <br> "password": "yourPassword", <br> "email":
+          "yourEmail@example.com", <br> "Birthday": "YYYY-MM-DD" <br> }
         </td>
       </tr>
 
@@ -164,7 +163,7 @@
         <td>JSON object of the specified user
           <p></p>
           Example: <br />
-          { <br> "id": "12345", <br> "username": "John_Doe", "password": "yourPassword", <br> "email":
+          { <br> "id": "12345", <br> "username": "John_Doe", <br> "password": "yourPassword", <br> "email":
           "yourEmail@example.com" <br> }
         </td>
       </tr>
@@ -178,49 +177,49 @@
         <td>JSON object
           <p></p>
           Example: <br />
-          { <br> "username": "John_Doe", "password": "yourPassword", <br> "email": "yourEmail@example.com" <br> }
+          { <br> "username": "John_Doe", <br> "password": "yourPassword", <br> "email": "yourEmail@example.com" <br> }
         </td>
         <td>
           JSON object of the updated user info
           <p></p>
           Example: <br />
-          { "id": "12345"; <br> "username": "Jane_Doe"; <br> "Password": "yourNewPassword" <br> }
+          { <br> "id": "12345"; <br> "username": "Jane_Doe"; <br> "Password": "yourNewPassword" <br> }
         </td>
       </tr>
 
       <tr>
         <td>Add a movie to favorites list by title</td>
-        <td>/users/:username/ <br> :movieTitle</td>
+        <td>/users/:Username/ <br> movies/:MovieID </td>
         <td>Adds a movie to user's favorites list</td>
         <td>POST</td>
-        <td>ID, movie title</td>
+        <td>Username, movie ID</td>
         <td>None</td>
         <td>JSON object of user info w/ updated favorites list
           <p></p>
           Example: <br />
-          { <br> "username": "John_Doe", "password": "yourPassword", <br> "email": "yourEmail@example.com" <br> "Birthday": "YYYY-MM-DD" <br> FavoriteMovies: [Movie ID1, MovieID2] <br> }
+          { <br> "username": "John_Doe", <br> "password": "yourPassword", <br> "email": "yourEmail@example.com", <br> "Birthday": "YYYY-MM-DD", <br> FavoriteMovies: [Movie ID1, MovieID2] <br> }
         </td>
       </tr>
 
       <tr>
         <td>Delete a movie from favorites list by title</td>
-        <td>/users/:username/ <br> :movieTitle</td>
+        <td>/users/:Username/ <br> movies/:MovieID </td>
         <td>Removes a movie from user's favorites list</td>
         <td>DELETE</td>
-        <td>ID, movie title</td>
+        <td>Username, movie ID</td>
         <td>None</td>
         <td>JSON object of user info w/ updated favotires list
           <p></p>
           Example: <br />
-          { <br> "username": "John_Doe", "password": "yourPassword", <br> "email": "yourEmail@example.com" <br> "Birthday": "YYYY-MM-DD" <br> FavoriteMovies: [Movie ID1, MovieID2] <br> }</td>
+          { <br> "username": "John_Doe", <br> "password": "yourPassword", <br> "email": "yourEmail@example.com", <br> "Birthday": "YYYY-MM-DD", <br> FavoriteMovies: [Movie ID1, MovieID2] <br> }</td>
       </tr>
 
       <tr>
         <td>Delete a user profile by username</td>
-        <td>/users/:id</td>
+        <td>/users/:Username</td>
         <td>Deletes a user by ID</td>
         <td>DELETE</td>
-        <td>ID</td>
+        <td>Username</td>
         <td>None</td>
         <td>Confirmation message that the user was successfully deleted</td>
       </tr>
