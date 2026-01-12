@@ -23,9 +23,24 @@ Building the server-side component of a movie web application.  Users of the app
 
 ## API Endpoints
 
+### Movie Endpoints
+
 |  Endpoint       |  Method  |  Description                |
 |-----------------|----------|-----------------------------|
 | /movies         | GET      | Get all movies              |
 | /movies/:title  | GET      | Get movie details by title  |
 | /movies/genre/:genre name | Get | Get genre info  |
-|
+| /movies/directors/:directorName | GET  | Get director info |
+
+### User Endpoints
+
+|  Endpoint |  Method  |  Description  |
+|-----------|----------|---------------|
+| /users | POST | Creates new user profile |
+| /login | POST | Logs into user account |
+| /users | GET | View all users and info |
+| /users/:username | GET | View user's info |
+| /users/:username | PUT | Update user info |
+| /users/:username/movies/:movieID | POST | Adds movie to user's favorites |
+| /users/:username/movies/:movieID | DELETE | Removes movie from user's favorites |
+| /users/:username | DELETE | Deletes user account |
