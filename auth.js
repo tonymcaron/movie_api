@@ -15,28 +15,44 @@ let generateJWTToken = (user) => {
 }
 
 /**
- * @description User login
- * @name POST /login
- * @example
- * Authentication:
- * none
- * @example
- * Request data format
+ * POST /login
+ *
+ * Authenticates a user and returns a JWT token.
+ *
+ * @route POST /login
+ * @group Authentication
+ *
+ * @param {Object} req.body - Login credentials
+ * @param {string} req.body.Username - User's username
+ * @param {string} req.body.Password - User's password
+ *
+ * @returns {Object} 200 - Successfully authenticated
+ * @returns {Object} 200.user - Logged-in user object
+ * @returns {string} 200.token - JWT authentication token
+ *
+ * @returns {Object} 400 - Authentication failed
+ * @returns {string} 400.message - Error message
+ *
+ * @example request - Login
  * {
- *  "Username": "jane-smith",
- *  "Password": "samplePassword"
+ *   "Username": "jane-smith",
+ *   "Password": "samplePassword"
  * }
- * @example
- * Response data format
+ *
+ * @example response - 200
  * {
- *   user: {
- *     "_id": 123,
+ *   "user": {
+ *     "_id": "123",
  *     "Username": "jane-smith",
- *     "Password": " ---HASHED PASSWORD--- ",
- *     "Email": "smith.jane@emailaddress.com",
- *     "FavoriteMovies": ["687e7b8595fc7839eeeec4aa", "687e9d9895fc7839eeeec4b6"]
+ *     "Email": "smith.jane@email.com",
+ *     "FavoriteMovies": []
  *   },
- *   token: " ---TOKEN STRING---"
+ *   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ * }
+ *
+ * @example response - 400
+ * {
+ *   "message": "Something is not right"
  * }
  */
 module.exports = (router) => {
