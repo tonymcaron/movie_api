@@ -1,3 +1,8 @@
+/**
+ * Authentication Module
+ * @module routes/auth
+ */
+
 const jwtSecret = 'your_jwt_secret'; // This has to be the same key used in the JWTStrategy
 
 const jwt = require('jsonwebtoken'),
@@ -5,6 +10,15 @@ const jwt = require('jsonwebtoken'),
 
 require('./passport'); // Your local passport file
 
+/**
+ * Generate JWT token for authenticated user
+ * @function generateJWTToken
+ * @memberof module:routes/auth
+ * @param {Object} user - User object
+ * @param {string} user.Username - Username
+ * @returns {string} JWT token
+ * @private
+ */
 let generateJWTToken = (user) => {
   return jwt.sign(user, jwtSecret, {
     subject: user.Username, // This is the username you're encoding in the JWT
@@ -15,31 +29,24 @@ let generateJWTToken = (user) => {
 }
 
 /**
- * POST /login
- *
- * Authenticates a user and returns a JWT token.
- *
- * @route POST /login
- * @group Authentication
- *
+ * User login endpoint
+ * @name POST /login
+ * @function
+ * @memberof module:routes/auth
+ * @param {Object} req - Express request object
  * @param {Object} req.body - Login credentials
  * @param {string} req.body.Username - User's username
  * @param {string} req.body.Password - User's password
- *
- * @returns {Object} 200 - Successfully authenticated
- * @returns {Object} 200.user - Logged-in user object
- * @returns {string} 200.token - JWT authentication token
- *
+ * @param {Object} res - Express response object
+ * @returns {Object} 200 - User object and JWT token
  * @returns {Object} 400 - Authentication failed
- * @returns {string} 400.message - Error message
- *
- * @example request - Login
+ * @example
+ * // Request format:
  * {
  *   "Username": "jane-smith",
  *   "Password": "samplePassword"
  * }
- *
- * @example response - 200
+ * // Response format (success):
  * {
  *   "user": {
  *     "_id": "123",
@@ -49,10 +56,10 @@ let generateJWTToken = (user) => {
  *   },
  *   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  * }
- *
- * @example response - 400
+ * // Response format (failure):
  * {
- *   "message": "Something is not right"
+ *   "message": "Something is not right",
+ *   "user": false
  * }
  */
 module.exports = (router) => {

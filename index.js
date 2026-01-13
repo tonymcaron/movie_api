@@ -1,3 +1,8 @@
+/**
+ * myFlix API - Movie and User Management
+ * @module routes/api
+ */
+
 const express = require('express');
 morgan = require('morgan');
 fs = require('fs');
@@ -34,16 +39,17 @@ app.get('/documentation', (req, res) => {
 });
 
 /**
- * @description Get all movies
+ * Get all movies
  * @name GET /movies
+ * @function
+ * @memberof module:routes/api
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} 200 - Array of movie objects
+ * @returns {Object} 500 - Error message
  * @example
- * Authentication: Bearer token (JWT)
- * @example
- * Request Data format
- * none
- * @example
- * Response data format
- * A JSON object holding data about all movies
+ * // Authentication: Bearer token (JWT)
+ * // Response data format: A JSON array holding data about all movies
  */
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await Movies.find()
@@ -57,32 +63,34 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
 });
 
 /**
- * @description Get a movie by title
+ * Get a movie by title
  * @name GET /movies/:title
- * @example 
- * Authentication: Bearer token (JWT)
+ * @function
+ * @memberof module:routes/api
+ * @param {Object} req - Express request object
+ * @param {string} req.params.title - Movie title
+ * @param {Object} res - Express response object
+ * @returns {Object} 200 - Movie object
+ * @returns {Object} 500 - Error message
  * @example
- * Request Data format
- * none
- * @example
- * Response data format
- * A JSON object holding data about a single movie including id, title, description, genre, director, image URL. Example:
-{
-"_id": ObjectId('687e7b8595fc7839eeeec4aa'),
-"Title": "Trainwreck",
-"Description": "A commitment-phobic woman reevaluates her beliefs about relationships …",
-"Genre": {
-  "Name": "Comedy",
-  "Description": "Comedy films are designed to elicit laughter from the audience with hu…"
-},
-"Director": {
-  "Name": "Judd Apatow",
-  "Bio": "Judd Apatow is an American comedian, director, and producer known for …",
-  "Birth": "1967",
-},
-"ImagePath": "https://upload.wikimedia.org/wikipedia/en/c/c5/Trainwreck_poster.jpg",
-"Featured": true
-}
+ * // Authentication: Bearer token (JWT)
+ * // Response format:
+ * {
+ *   "_id": "687e7b8595fc7839eeeec4aa",
+ *   "Title": "Trainwreck",
+ *   "Description": "A commitment-phobic woman reevaluates her beliefs...",
+ *   "Genre": {
+ *     "Name": "Comedy",
+ *     "Description": "Comedy films are designed to elicit laughter..."
+ *   },
+ *   "Director": {
+ *     "Name": "Judd Apatow",
+ *     "Bio": "Judd Apatow is an American comedian...",
+ *     "Birth": "1967"
+ *   },
+ *   "ImagePath": "https://upload.wikimedia.org/wikipedia/en/c/c5/Trainwreck_poster.jpg",
+ *   "Featured": true
+ * }
  */
 app.get('/movies/:title', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await Movies.findOne({ Title: req.params.title })
@@ -96,20 +104,22 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), asyn
 });
 
 /**
- * @description Get a genre by name
+ * Get a genre by name
  * @name GET /movies/genre/:genreName
+ * @function
+ * @memberof module:routes/api
+ * @param {Object} req - Express request object
+ * @param {string} req.params.genreName - Genre name
+ * @param {Object} res - Express response object
+ * @returns {Object} 200 - Genre object
+ * @returns {Object} 500 - Error message
  * @example
- * Authentication: Bearer token (JWT)
- * @example
- * Request Data format
- * none
- * @example
- * Response data format
- * A JSON object holding data about a single genre by name. Example:
+ * // Authentication: Bearer token (JWT)
+ * // Response format:
  * {
- *  "Name": "Comedy",
- *  "Description": "Comedy films are designed to elicit laughter from the audience with humor-driven storytelling."
- *}
+ *   "Name": "Comedy",
+ *   "Description": "Comedy films are designed to elicit laughter from the audience..."
+ * }
  */
 app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await Movies.findOne({ 'Genre.Name': req.params.genreName })
@@ -123,21 +133,23 @@ app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: fals
 });
 
 /**
- * @description Get a director by name
+ * Get a director by name
  * @name GET /movies/directors/:directorName
+ * @function
+ * @memberof module:routes/api
+ * @param {Object} req - Express request object
+ * @param {string} req.params.directorName - Director name
+ * @param {Object} res - Express response object
+ * @returns {Object} 200 - Director object
+ * @returns {Object} 500 - Error message
  * @example
- * Authentication: Bearer token (JWT)
- * @example
- * Request Data format
- * none
- * @example
- * Response data format
- * A JSON object holding data about a director including bio, birth year, and death year. Example:
-{
-  "Name": "Judd Apatow",
-  "Bio": "Judd Apatow is an American comedian, director, and producer known for comedy films and TV shows.",
-  "Birth": "1967"
-}
+ * // Authentication: Bearer token (JWT)
+ * // Response format:
+ * {
+ *   "Name": "Judd Apatow",
+ *   "Bio": "Judd Apatow is an American comedian, director, and producer...",
+ *   "Birth": "1967"
+ * }
  */
 app.get('/movies/directors/:directorName', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await Movies.findOne({ 'Director.Name': req.params.directorName })
@@ -151,30 +163,37 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
 });
 
 /**
- * @description Register a new user
+ * Register a new user
  * @name POST /users
+ * @function
+ * @memberof module:routes/api
+ * @param {Object} req - Express request object
+ * @param {Object} req.body - User registration data
+ * @param {string} req.body.Username - Username (min 5 characters, alphanumeric)
+ * @param {string} req.body.Password - Password (required)
+ * @param {string} req.body.Email - Email address (valid email format)
+ * @param {string} req.body.Birthday - Birth date (optional)
+ * @param {Object} res - Express response object
+ * @returns {Object} 201 - Created user object
+ * @returns {Object} 400 - Username already exists
+ * @returns {Object} 422 - Validation errors
+ * @returns {Object} 500 - Error message
  * @example
- * Authentication:
- * none
- * @example
- * Request Data format
- * A JSON object holding data about a new user (username, email, password). Example:
-{
-  "Username": "jane-smith" (required),
-  "Email": "smith.jane@emailaddress.com" (required),
-  "Password": "samplePassword" (required),
-  "Birthday": "1950-01-01",
-}
- * @example
- * Response data format
- * A JSON object holding data about the new user including an unique id. Example:
-{
-  "Username": "jane-smith" (required),
-  "Email": "smith.jane@emailaddress.com" (required),
-  "Password": "samplePassword" (required),
-  "Birthday": "1950-01-01",
-  "_id": "68a891ba6838961ecfce24f1"
-}
+ * // Request format:
+ * {
+ *   "Username": "jane-smith",
+ *   "Email": "smith.jane@emailaddress.com",
+ *   "Password": "samplePassword",
+ *   "Birthday": "1950-01-01"
+ * }
+ * // Response format:
+ * {
+ *   "Username": "jane-smith",
+ *   "Email": "smith.jane@emailaddress.com",
+ *   "Password": "[hashed]",
+ *   "Birthday": "1950-01-01",
+ *   "_id": "68a891ba6838961ecfce24f1"
+ * }
  */
 app.post('/users',
   [
@@ -219,17 +238,18 @@ app.post('/users',
 
 
 /**
-* @description Get all users
-* @name GET /users
-* @example
-* Authentication: Bearer token (JWT)
-* @example
-* Request Data format
-* none
-* @example
-* Response data format
-* A JSON object holding data about all users
-*/
+ * Get all users
+ * @name GET /users
+ * @function
+ * @memberof module:routes/api
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} 200 - Array of user objects
+ * @returns {Object} 500 - Error message
+ * @example
+ * // Authentication: Bearer token (JWT)
+ * // Response: A JSON array holding data about all users
+ */
 app.get('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await Users.find()
     .then((users) => {
@@ -242,24 +262,27 @@ app.get('/users', passport.authenticate('jwt', { session: false }), async (req, 
 });
 
 /**
- * @description Get a user by username
+ * Get a user by username
  * @name GET /users/:Username
- * @example 
- * Authentication: Bearer token (JWT)
+ * @function
+ * @memberof module:routes/api
+ * @param {Object} req - Express request object
+ * @param {string} req.params.Username - Username
+ * @param {Object} res - Express response object
+ * @returns {Object} 200 - User object
+ * @returns {Object} 400 - Permission denied
+ * @returns {Object} 500 - Error message
  * @example
- * Request Data format
- * none
- * @example
- * Response data format
- * A JSON object holding data about a single user including id, username, email, password, birthday and favorite movies. Example:
-{
-  "Username": "jane-smith",
-  "Email": "smith.jane@emailaddress.com",
-  "Password": "samplePassword",
-  "Birthday": "1950-01-01",
-  "FavoriteMovies": ["687e7b8595fc7839eeeec4aa"],
-  "_id": "68a891ba6838961ecfce24f1"
-}
+ * // Authentication: Bearer token (JWT)
+ * // Response format:
+ * {
+ *   "Username": "jane-smith",
+ *   "Email": "smith.jane@emailaddress.com",
+ *   "Password": "[hashed]",
+ *   "Birthday": "1950-01-01",
+ *   "FavoriteMovies": ["687e7b8595fc7839eeeec4aa"],
+ *   "_id": "68a891ba6838961ecfce24f1"
+ * }
  */
 app.get('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
   if (req.user.Username !== req.params.Username) {
@@ -276,29 +299,39 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), as
 });
 
 /**
- * @description Update a user by username
+ * Update a user by username
  * @name PUT /users/:Username
- * @example 
- * Authentication: Bearer token (JWT)
+ * @function
+ * @memberof module:routes/api
+ * @param {Object} req - Express request object
+ * @param {string} req.params.Username - Username
+ * @param {Object} req.body - Updated user data
+ * @param {string} req.body.Username - New username (min 5 characters, alphanumeric)
+ * @param {string} req.body.Password - New password
+ * @param {string} req.body.Email - New email (valid email format)
+ * @param {string} req.body.Birthday - New birth date
+ * @param {Object} res - Express response object
+ * @returns {Object} 200 - Updated user object
+ * @returns {Object} 400 - Permission denied
+ * @returns {Object} 422 - Validation errors
+ * @returns {Object} 500 - Error message
  * @example
- * Request Data format
- * A JSON object holding updated data about a user. Example:
-{
-  "Username": "jane-smith",
-  "Email": "smith.jane@emailaddress.com",
-  "Password": "samplePassword",
-  "Birthday": "1950-01-01",
-}
- * @example
- * Response data format
- * A JSON object holding the updated data about the user. Example:
-{
-  "Username": "jane_doe",
-  "Email": "doe.jane@emailaddress.com",
-  "Password": "newPassword",
-  "Birthday": "2000-01-01",
-  "_id": "68a891ba6838961ecfce24f1"
-}
+ * // Authentication: Bearer token (JWT)
+ * // Request format:
+ * {
+ *   "Username": "jane-smith",
+ *   "Email": "smith.jane@emailaddress.com",
+ *   "Password": "samplePassword",
+ *   "Birthday": "1950-01-01"
+ * }
+ * // Response format:
+ * {
+ *   "Username": "jane_doe",
+ *   "Email": "doe.jane@emailaddress.com",
+ *   "Password": "[hashed]",
+ *   "Birthday": "2000-01-01",
+ *   "_id": "68a891ba6838961ecfce24f1"
+ * }
  */
 app.put('/users/:Username',
   [
@@ -339,28 +372,29 @@ app.put('/users/:Username',
 
 
 /**
-* @description Add a movie to a users favorites
-* @name POST /users/:Username/movies/:MovieID
-* @example 
-* Authentication: Bearer token (JWT)
-* @example
-* Request Data format
-* A JSON object holding data about a favorite movie. Example:
-{
-"FavoriteMovies": ["687e9d9895fc7839eeeec4b6"]
-}
-* @example
-* Response data format
-* A JSON object holding updated data about a user. Example:
-{
-"Username": "jane-smith",
-"Email": "smith.jane@emailaddress.com",
-"Password": "samplePassword",
-"Birthday": "1950-01-01",
-"FavoriteMovies": ["687e7b8595fc7839eeeec4aa", "687e9d9895fc7839eeeec4b6"],
-"_id": "68a891ba6838961ecfce24f1"
-}
-*/
+ * Add a movie to a user's favorites
+ * @name POST /users/:Username/movies/:MovieID
+ * @function
+ * @memberof module:routes/api
+ * @param {Object} req - Express request object
+ * @param {string} req.params.Username - Username
+ * @param {string} req.params.MovieID - Movie ID
+ * @param {Object} res - Express response object
+ * @returns {Object} 200 - Updated user object with new favorite
+ * @returns {Object} 400 - Permission denied
+ * @returns {Object} 500 - Error message
+ * @example
+ * // Authentication: Bearer token (JWT)
+ * // Response format:
+ * {
+ *   "Username": "jane-smith",
+ *   "Email": "smith.jane@emailaddress.com",
+ *   "Password": "[hashed]",
+ *   "Birthday": "1950-01-01",
+ *   "FavoriteMovies": ["687e7b8595fc7839eeeec4aa", "687e9d9895fc7839eeeec4b6"],
+ *   "_id": "68a891ba6838961ecfce24f1"
+ * }
+ */
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
   if (req.user.Username !== req.params.Username) {
     return res.status(400).send('Permission denied');
@@ -379,24 +413,28 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
 });
 
 /**
- * @description Delete a movie from a users favorites
+ * Delete a movie from a user's favorites
  * @name DELETE /users/:Username/movies/:MovieID
- * @example 
- * Authentication: Bearer token (JWT)
+ * @function
+ * @memberof module:routes/api
+ * @param {Object} req - Express request object
+ * @param {string} req.params.Username - Username
+ * @param {string} req.params.MovieID - Movie ID
+ * @param {Object} res - Express response object
+ * @returns {Object} 200 - Updated user object without removed favorite
+ * @returns {Object} 400 - Permission denied
+ * @returns {Object} 500 - Error message
  * @example
- * Request Data format
- * none
- * @example
- * Response data format
- * A JSON object holding updated data about a user. Example:
-{
-  "Username": "jane-smith",
-  "Email": "smith.jane@emailaddress.com",
-  "Password": "samplePassword",
-  "Birthday": "1950-01-01",
-  "FavoriteMovies": ["687e7b8595fc7839eeeec4aa"],
-  "_id": "68a891ba6838961ecfce24f1"
-}
+ * // Authentication: Bearer token (JWT)
+ * // Response format:
+ * {
+ *   "Username": "jane-smith",
+ *   "Email": "smith.jane@emailaddress.com",
+ *   "Password": "[hashed]",
+ *   "Birthday": "1950-01-01",
+ *   "FavoriteMovies": ["687e7b8595fc7839eeeec4aa"],
+ *   "_id": "68a891ba6838961ecfce24f1"
+ * }
  */
 app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
   if (req.user.Username !== req.params.Username) {
@@ -416,16 +454,19 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 });
 
 /**
- * @description Delete a user by username
+ * Delete a user by username
  * @name DELETE /users/:Username
- * @example 
- * Authentication: Bearer token (JWT)
+ * @function
+ * @memberof module:routes/api
+ * @param {Object} req - Express request object
+ * @param {string} req.params.Username - Username
+ * @param {Object} res - Express response object
+ * @returns {string} 200 - Success message
+ * @returns {string} 400 - User not found or permission denied
+ * @returns {Object} 500 - Error message
  * @example
- * Request Data format
- * none
- * @example
- * Response data format
- * Confirmation or error message
+ * // Authentication: Bearer token (JWT)
+ * // Response: "jane-smith was deleted."
  */
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
   if (req.user.Username !== req.params.Username) {
