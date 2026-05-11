@@ -3,7 +3,7 @@
  * @module routes/auth
  */
 
-const jwtSecret = 'your_jwt_secret'; // This has to be the same key used in the JWTStrategy
+const jwtSecret = process.env.JWT_SECRET || 'your_jwt_secret'; // This has to be the same key used in the JWTStrategy
 
 const jwt = require('jsonwebtoken'),
   passport = require('passport');

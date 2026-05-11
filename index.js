@@ -17,7 +17,6 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('combined'));
 const cors = require('cors');
 app.use(cors());
 let auth = require('./auth')(app);
@@ -25,6 +24,7 @@ const passport = require('passport');
 require('./passport');
 const { check, validationResult } = require('express-validator');
 
+app.use(morgan('combined'));
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
