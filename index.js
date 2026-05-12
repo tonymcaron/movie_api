@@ -491,9 +491,16 @@ app.use((err, req, res, next) => {
   res.status(500).send('Sumpthin done broke.');
 });
 
-const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0', () => {
-  console.log('Listening on Port ' + port);
-});
+// const port = process.env.PORT || 8080;
+// app.listen(port, '0.0.0.0', () => {
+//   console.log('Listening on Port ' + port);
+// });
+
+if (process.env.NODE_ENV !== 'production') {
+  const port = process.env.PORT || 8080;
+  app.listen(port, '0.0.0.0', () => {
+    console.log('Listening on Port ' + port);
+  });
+}
 
 module.exports = app;
