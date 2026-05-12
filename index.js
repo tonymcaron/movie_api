@@ -12,14 +12,19 @@ const Movies = Models.Movie;
 const Users = Models.User;
 // mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000,
-  connectTimeoutMS: 5000,
-})
-  .them(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error("MongoDB connection error: ", err));
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.CONNECTION_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000,
+    })
+    console.log('Connected to MongoDB');
+  } catch (err) {
+    console.error('MongoDB connection error: ', err);
+  }
+};
 
 const app = express();
 app.use(express.json());
@@ -506,5 +511,7 @@ if (process.env.NODE_ENV !== 'production') {
     console.log('Listening on Port ' + port);
   });
 }
+
+connectDB();
 
 module.exports = app;
